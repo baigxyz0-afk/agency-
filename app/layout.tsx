@@ -1,8 +1,22 @@
 import type { Metadata } from "next";
 import { Geist, Fraunces } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { JsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/lib/site-config";
+
+// Runs before hydration so the light/dark attribute is already correct on
+// first paint — without this, the page would flash the wrong theme for
+// returning visitors who chose light mode.
+const themeInitScript = `
+  (function () {
+    try {
+      var stored = localStorage.getItem("theme");
+      var theme = stored === "light" || stored === "dark" ? stored : "dark";
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch (e) {}
+  })();
+`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -63,6 +77,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <Script id="theme-init" strategy="beforeInteractive">
+          {themeInitScript}
+        </Script>
         <JsonLd data={organizationJsonLd} />
         <JsonLd data={websiteJsonLd} />
         {children}

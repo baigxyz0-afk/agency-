@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { primaryNav, siteConfig } from "@/lib/site-config";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -63,22 +64,26 @@ export function Nav() {
           )}
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-3 lg:flex">
+          <ThemeToggle />
           <Button href="/contact" className="!px-5 !py-2.5">
             Start a Project
           </Button>
         </div>
 
-        <button
-          className="lg:hidden text-ink"
-          aria-expanded={open}
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className="block w-6 border-t border-ink" />
-          <span className="mt-1.5 block w-6 border-t border-ink" />
-          <span className="mt-1.5 block w-4 border-t border-ink" />
-        </button>
+        <div className="flex items-center gap-3 lg:hidden">
+          <ThemeToggle />
+          <button
+            className="text-ink"
+            aria-expanded={open}
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="block w-6 border-t border-ink" />
+            <span className="mt-1.5 block w-6 border-t border-ink" />
+            <span className="mt-1.5 block w-4 border-t border-ink" />
+          </button>
+        </div>
       </div>
 
       {open && (

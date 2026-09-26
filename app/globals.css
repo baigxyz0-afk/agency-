@@ -38,6 +38,34 @@
   --gutter: 1.5rem;
 }
 
+/* Light theme — same structure and accent hue as the dark theme above, so
+   switching feels like a lighting change, not a different brand. Applied via
+   a `data-theme="light"` attribute on <html>, set before paint by the inline
+   script in layout.tsx (see ThemeToggle) to avoid a flash of the wrong theme. */
+:root[data-theme="light"] {
+  --color-ink: #0f172a;
+  --color-ink-soft: #475569;
+  --color-paper: #ffffff;
+  --color-paper-dim: #f1f5f9;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+  --color-muted: #64748b;
+  --color-accent: #2563eb;
+  --color-accent-dark: #1d4ed8;
+  --color-accent-soft: #eff6ff;
+  --color-accent-green: #16a34a;
+  --color-accent-green-dark: #15803d;
+  --color-accent-green-soft: #f0fdf4;
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-error: #dc2626;
+
+  --color-photo-1: #e2e8f0;
+  --color-photo-2: #cbd5e1;
+  --color-photo-3: #f1f5f9;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -82,6 +110,10 @@ body {
   html {
     scroll-behavior: smooth;
     color-scheme: dark;
+  }
+
+  html[data-theme="light"] {
+    color-scheme: light;
   }
 
   @media (prefers-reduced-motion: reduce) {

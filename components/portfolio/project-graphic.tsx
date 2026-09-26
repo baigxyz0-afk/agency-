@@ -25,12 +25,16 @@ function PhotoBlock({ className = "", photoId }: { className?: string; photoId: 
       className={`relative overflow-hidden bg-[linear-gradient(135deg,var(--color-photo-1)_0%,var(--color-photo-2)_45%,var(--color-photo-3)_100%)] ${className}`}
     >
       <Image
-        src={`https://images.unsplash.com/${photoId}?w=640&h=480&fit=crop&auto=format`}
+        src={`https://images.unsplash.com/${photoId}?w=800&h=600&fit=crop&auto=format&q=80`}
         alt=""
         fill
         sizes="(min-width: 1024px) 400px, 50vw"
-        className="object-cover"
+        className="object-cover saturate-[0.85]"
       />
+      {/* Brand-tinted duotone pass so every photo reads as art-directed for
+          this site rather than a stock image dropped in unedited. */}
+      <div className="absolute inset-0 bg-accent-dark/15 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
     </div>
   );
 }
