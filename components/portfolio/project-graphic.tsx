@@ -13,17 +13,19 @@ function LogoMark({ tone = "ink" }: { tone?: "ink" | "paper" }) {
   return <span className={`h-2.5 w-2.5 rounded-full ${tone === "ink" ? "bg-ink" : "bg-paper"}`} />;
 }
 
-// Real (freely-licensed) placeholder photography instead of flat gradient
-// blocks, so these already-disclosed demo mockups ("Illustrative mockup, not
-// a real client screenshot") read as believable interface renders. The seed
-// keeps a given slot's photo stable across renders and rebuilds.
-function PhotoBlock({ className = "", seed }: { className?: string; seed: string }) {
+// Real (freely-licensed, Unsplash) placeholder photography instead of flat
+// gradient blocks, so these already-disclosed demo mockups ("Illustrative
+// mockup, not a real client screenshot") read as believable interface
+// renders. Each photoId is hand-picked to match its slot (an office/team
+// photo for the studio hero, a bag for "Canvas Weekender," a staged living
+// room for a listing card) rather than a random, unrelated stock photo.
+function PhotoBlock({ className = "", photoId }: { className?: string; photoId: string }) {
   return (
     <div
       className={`relative overflow-hidden bg-[linear-gradient(135deg,var(--color-photo-1)_0%,var(--color-photo-2)_45%,var(--color-photo-3)_100%)] ${className}`}
     >
       <Image
-        src={`https://picsum.photos/seed/${seed}/640/480`}
+        src={`https://images.unsplash.com/${photoId}?w=640&h=480&fit=crop&auto=format`}
         alt=""
         fill
         sizes="(min-width: 1024px) 400px, 50vw"
@@ -153,7 +155,7 @@ function WebsiteGraphic() {
             </span>
           </div>
         </div>
-        <PhotoBlock className="aspect-[4/3] w-full" seed="northline-studio-hero" />
+        <PhotoBlock className="aspect-[4/3] w-full" photoId="photo-1557804506-669a67965ba0" />
       </div>
       <div className="grid grid-cols-3 gap-3 border-t border-border p-4">
         {[
@@ -174,12 +176,12 @@ function WebsiteGraphic() {
 
 function EcommerceGraphic() {
   const products = [
-    { name: "Canvas Weekender", price: "$128", was: "$160", rating: 5 },
-    { name: "Studio Tote", price: "$64", was: null, rating: 4 },
-    { name: "Field Jacket", price: "$210", was: null, rating: 4 },
-    { name: "Wool Scarf", price: "$48", was: "$60", rating: 5 },
-    { name: "Leather Belt", price: "$72", was: null, rating: 4 },
-    { name: "Travel Kit", price: "$36", was: null, rating: 5 },
+    { name: "Canvas Weekender", price: "$128", was: "$160", rating: 5, photoId: "photo-1546938576-04917ec516ee" },
+    { name: "Studio Tote", price: "$64", was: null, rating: 4, photoId: "photo-1604712941007-2627cfd759fd" },
+    { name: "Field Jacket", price: "$210", was: null, rating: 4, photoId: "photo-1548883354-d056ab7b441f" },
+    { name: "Wool Scarf", price: "$48", was: "$60", rating: 5, photoId: "photo-1609803384069-19f3e5a70e75" },
+    { name: "Leather Belt", price: "$72", was: null, rating: 4, photoId: "photo-1664286074176-5206ee5dc878" },
+    { name: "Travel Kit", price: "$36", was: null, rating: 5, photoId: "photo-1553265472-b913dd3e32a2" },
   ];
   return (
     <div className="flex h-full w-full flex-col bg-surface">
@@ -193,7 +195,7 @@ function EcommerceGraphic() {
         <div className="mt-3 grid grid-cols-3 gap-2.5">
           {products.map((p) => (
             <div key={p.name} className="space-y-1">
-              <PhotoBlock className="aspect-square w-full" seed={`fieldmark-${p.name}`} />
+              <PhotoBlock className="aspect-square w-full" photoId={p.photoId} />
               <p className="truncate text-[7.5px] font-medium text-ink">{p.name}</p>
               <StarRating count={p.rating} />
               <div className="flex items-baseline gap-1.5">
@@ -310,10 +312,10 @@ function DashboardGraphic() {
 
 function WebAppGraphic() {
   const listings = [
-    { title: "Unit 204 — 2BR Loft", meta: "1,120 sqft · Downtown", price: "$2,150/mo", active: false },
-    { title: "Unit 118 — 3BR Corner", meta: "1,450 sqft · Riverside", price: "$2,600/mo", active: true },
-    { title: "Unit 305 — Studio", meta: "620 sqft · Midtown", price: "$1,480/mo", active: false },
-    { title: "Unit 402 — 1BR + Den", meta: "890 sqft · Arts District", price: "$1,890/mo", active: false },
+    { title: "Unit 204 — 2BR Loft", meta: "1,120 sqft · Downtown", price: "$2,150/mo", active: false, photoId: "photo-1738168279272-c08d6dd22002" },
+    { title: "Unit 118 — 3BR Corner", meta: "1,450 sqft · Riverside", price: "$2,600/mo", active: true, photoId: "photo-1666282167632-c613fbeb163c" },
+    { title: "Unit 305 — Studio", meta: "620 sqft · Midtown", price: "$1,480/mo", active: false, photoId: "photo-1682184805271-11671b7ecf4c" },
+    { title: "Unit 402 — 1BR + Den", meta: "890 sqft · Arts District", price: "$1,890/mo", active: false, photoId: "photo-1628592102751-ba83b0314276" },
   ];
   return (
     <div className="flex h-full w-full bg-surface">
@@ -330,7 +332,7 @@ function WebAppGraphic() {
               key={item.title}
               className={`flex items-center gap-2 border p-2 ${item.active ? "border-accent bg-accent-soft/40" : "border-border"}`}
             >
-              <PhotoBlock className="h-9 w-11 shrink-0" seed={`listing-${item.title}`} />
+              <PhotoBlock className="h-9 w-11 shrink-0" photoId={item.photoId} />
               <div className="min-w-0 flex-1 space-y-0.5">
                 <p className="truncate text-[7.5px] font-medium text-ink">{item.title}</p>
                 <p className="truncate text-[6.5px] text-muted">{item.meta}</p>
@@ -341,7 +343,7 @@ function WebAppGraphic() {
         </div>
       </div>
       <div className="hidden w-2/5 flex-col gap-2.5 p-4 sm:flex">
-        <PhotoBlock className="aspect-[4/3] w-full" seed="listing-unit-118-detail" />
+        <PhotoBlock className="aspect-[4/3] w-full" photoId="photo-1666282167632-c613fbeb163c" />
         <p className="text-[8.5px] font-semibold text-ink">Unit 118 — 3BR Corner</p>
         <div className="grid grid-cols-2 gap-2">
           {[

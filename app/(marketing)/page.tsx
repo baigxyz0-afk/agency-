@@ -307,7 +307,7 @@ function BrowserMockup() {
           <div className="col-span-2 space-y-3">
             <div className="relative h-24 overflow-hidden bg-border-strong">
               <Image
-                src="https://picsum.photos/seed/fieldstone-hero-mockup/640/320"
+                src="https://images.unsplash.com/photo-1511376979163-f804dff7ad7b?w=640&h=320&fit=crop&auto=format"
                 alt=""
                 fill
                 sizes="400px"
