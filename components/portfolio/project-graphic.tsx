@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { PortfolioCategory } from "@/content/portfolio";
 
 // High-fidelity interface mockups for portfolio thumbnails, built from CSS
@@ -12,11 +13,23 @@ function LogoMark({ tone = "ink" }: { tone?: "ink" | "paper" }) {
   return <span className={`h-2.5 w-2.5 rounded-full ${tone === "ink" ? "bg-ink" : "bg-paper"}`} />;
 }
 
-function PhotoBlock({ className = "" }: { className?: string }) {
+// Real (freely-licensed) placeholder photography instead of flat gradient
+// blocks, so these already-disclosed demo mockups ("Illustrative mockup, not
+// a real client screenshot") read as believable interface renders. The seed
+// keeps a given slot's photo stable across renders and rebuilds.
+function PhotoBlock({ className = "", seed }: { className?: string; seed: string }) {
   return (
     <div
-      className={`bg-[linear-gradient(135deg,var(--color-photo-1)_0%,var(--color-photo-2)_45%,var(--color-photo-3)_100%)] ${className}`}
-    />
+      className={`relative overflow-hidden bg-[linear-gradient(135deg,var(--color-photo-1)_0%,var(--color-photo-2)_45%,var(--color-photo-3)_100%)] ${className}`}
+    >
+      <Image
+        src={`https://picsum.photos/seed/${seed}/640/480`}
+        alt=""
+        fill
+        sizes="(min-width: 1024px) 400px, 50vw"
+        className="object-cover"
+      />
+    </div>
   );
 }
 
@@ -140,7 +153,7 @@ function WebsiteGraphic() {
             </span>
           </div>
         </div>
-        <PhotoBlock className="aspect-[4/3] w-full" />
+        <PhotoBlock className="aspect-[4/3] w-full" seed="northline-studio-hero" />
       </div>
       <div className="grid grid-cols-3 gap-3 border-t border-border p-4">
         {[
@@ -180,7 +193,7 @@ function EcommerceGraphic() {
         <div className="mt-3 grid grid-cols-3 gap-2.5">
           {products.map((p) => (
             <div key={p.name} className="space-y-1">
-              <PhotoBlock className="aspect-square w-full" />
+              <PhotoBlock className="aspect-square w-full" seed={`fieldmark-${p.name}`} />
               <p className="truncate text-[7.5px] font-medium text-ink">{p.name}</p>
               <StarRating count={p.rating} />
               <div className="flex items-baseline gap-1.5">
@@ -317,7 +330,7 @@ function WebAppGraphic() {
               key={item.title}
               className={`flex items-center gap-2 border p-2 ${item.active ? "border-accent bg-accent-soft/40" : "border-border"}`}
             >
-              <PhotoBlock className="h-9 w-11 shrink-0" />
+              <PhotoBlock className="h-9 w-11 shrink-0" seed={`listing-${item.title}`} />
               <div className="min-w-0 flex-1 space-y-0.5">
                 <p className="truncate text-[7.5px] font-medium text-ink">{item.title}</p>
                 <p className="truncate text-[6.5px] text-muted">{item.meta}</p>
@@ -328,7 +341,7 @@ function WebAppGraphic() {
         </div>
       </div>
       <div className="hidden w-2/5 flex-col gap-2.5 p-4 sm:flex">
-        <PhotoBlock className="aspect-[4/3] w-full" />
+        <PhotoBlock className="aspect-[4/3] w-full" seed="listing-unit-118-detail" />
         <p className="text-[8.5px] font-semibold text-ink">Unit 118 — 3BR Corner</p>
         <div className="grid grid-cols-2 gap-2">
           {[

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { Section, Eyebrow } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
@@ -304,7 +305,15 @@ function BrowserMockup() {
         </div>
         <div className="grid grid-cols-3 gap-3 p-4">
           <div className="col-span-2 space-y-3">
-            <div className="h-24 bg-border-strong" />
+            <div className="relative h-24 overflow-hidden bg-border-strong">
+              <Image
+                src="https://picsum.photos/seed/fieldstone-hero-mockup/640/320"
+                alt=""
+                fill
+                sizes="400px"
+                className="object-cover"
+              />
+            </div>
             <div className="h-3 w-3/4 bg-border-strong" />
             <div className="h-3 w-1/2 bg-border-strong" />
           </div>
